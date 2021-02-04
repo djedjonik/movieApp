@@ -1,6 +1,6 @@
 # movieApp
 
-##iOS Training Project - Movie Gallery
+## iOS Training Project - Movie Gallery
 
 Develop iOS application that will perform single API request and display response according to provided mockups.
 
