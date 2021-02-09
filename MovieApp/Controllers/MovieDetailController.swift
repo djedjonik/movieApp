@@ -10,6 +10,8 @@ import Foundation
 
 class MovieDetailController: UIViewController {
     
+    private var writersCollectionView: UICollectionView?
+    
     var movie: MovieModel? {
         didSet {
             movieNameLabel.text = movie?.title
@@ -135,6 +137,25 @@ class MovieDetailController: UIViewController {
         return label
     }()
     
+    let writersTitle: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Writers"
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        label.numberOfLines = 1
+        label.sizeToFit()
+        return label
+    }()
+    
+    lazy var writersStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.alignment = .leading
+        stack.distribution = .fill
+        return stack
+    }()
     
     lazy var storyStackView: UIStackView = {
         let stack = UIStackView()
@@ -212,9 +233,11 @@ class MovieDetailController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setUpViews()
         setUpScrollView()
     }
+
        
     private func setUpScrollView() {
         view.addSubview(scrollView)
@@ -274,10 +297,12 @@ class MovieDetailController: UIViewController {
         movieNameLabel.leftAnchor.constraint(equalTo: titlAndGenreStackView.leftAnchor, constant: 0).isActive = true
         movieNameLabel.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
         movieNameLabel.rightAnchor.constraint(equalTo: titlAndGenreStackView.rightAnchor, constant: 0).isActive = true
+        movieNameLabel.bottomAnchor.constraint(equalTo: titlAndGenreStackView.bottomAnchor, constant: 0).isActive = true
 
         titlAndGenreStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 38).isActive = true
         titlAndGenreStackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 18).isActive = true
         titlAndGenreStackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 18).isActive = true
+
 
         relesedLabelTitle.topAnchor.constraint(equalTo: relesedStackView.topAnchor, constant: 0).isActive = true
         relesedLabelTitle.leftAnchor.constraint(equalTo: relesedStackView.leftAnchor, constant: 0).isActive = true
@@ -310,7 +335,7 @@ class MovieDetailController: UIViewController {
         runTimeStackView.heightAnchor.constraint(equalToConstant: 38).isActive = true
         runTimeStackView.widthAnchor.constraint(equalToConstant:  self.view.frame.width).isActive = true
 
-        runTimeAndRelesedStackView.topAnchor.constraint(equalTo: titlAndGenreStackView.bottomAnchor, constant: 50).isActive = true
+        runTimeAndRelesedStackView.topAnchor.constraint(equalTo: titlAndGenreStackView.bottomAnchor, constant: 18).isActive = true
         runTimeAndRelesedStackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 18).isActive = true
         runTimeAndRelesedStackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 18).isActive = true
         
@@ -333,16 +358,14 @@ class MovieDetailController: UIViewController {
         
         storyLabel.topAnchor.constraint(equalTo: storyTitle.bottomAnchor, constant: 5).isActive = true
         storyLabel.leftAnchor.constraint(equalTo: storyStackView.leftAnchor, constant: 0).isActive = true
-        storyLabel.rightAnchor.constraint(equalTo: storyStackView.rightAnchor, constant: 0).isActive = true
+        storyLabel.rightAnchor.constraint(equalTo: storyStackView.rightAnchor, constant: 18).isActive = true
         storyLabel.bottomAnchor.constraint(equalTo: storyStackView.bottomAnchor, constant: 0).isActive = true
         
         storyStackView.topAnchor.constraint(equalTo: directorStackView.bottomAnchor, constant: 18).isActive = true
         storyStackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 18).isActive = true
         storyStackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 18).isActive = true
-        storyStackView.widthAnchor.constraint(equalToConstant:  self.view.frame.width).isActive = true
         
-        
-        
+      
     }
 
 }

@@ -66,7 +66,7 @@ class MovieCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 12)
         label.textAlignment = .left
         label.textColor = #colorLiteral(red: 0.4392156863, green: 0.4392156863, blue: 0.4392156863, alpha: 1)
-        label.numberOfLines = 1
+        label.numberOfLines = 0
         return label
     }()
     
@@ -152,7 +152,7 @@ class MovieCell: UICollectionViewCell {
         shadowView.addSubview(imageView)
         
         //Views in MainStackView Constrains
-        addConstrainsWithFormat(format: "V:|-33-[v0(354)]-20-[v1]-10-[v2(28)]|", views: shadowView,titlAndGenreStackView,ratingStackView)
+        addConstrainsWithFormat(format: "V:|-33-[v0(354)]-20-[v1]-10-[v2(28)]-<=100-|", views: shadowView,titlAndGenreStackView,ratingStackView)
         
         addConstrainsWithFormat(format: "H:|[v0(226)]|", views: shadowView)
         
@@ -165,6 +165,7 @@ class MovieCell: UICollectionViewCell {
         addConstrainsWithFormat(format: "V:|[v0][v1]|", views: genreLabel,movieNameLabel)
         addConstrainsWithFormat(format: "H:|[v0]|", views: genreLabel)
         addConstrainsWithFormat(format: "H:|[v0]|", views: movieNameLabel)
+        
         
         
         //ImageView Constrains
