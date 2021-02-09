@@ -23,7 +23,9 @@ class MovieNetworkManager {
             }
             
             do {
-                let movies = try JSONDecoder().decode(Movies.self, from: data!)
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let movies = try decoder.decode(Movies.self, from: data!)
                 completion(.success(movies))
                 
             } catch let jsonError {

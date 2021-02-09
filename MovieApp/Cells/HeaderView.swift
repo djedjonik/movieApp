@@ -29,7 +29,6 @@ class HeaderView: UICollectionReusableView {
         stack.spacing = 10.0
         stack.alignment = .leading
         stack.distribution = .fill
-        [self.headerLabel,self.subHeaderLabel].forEach { stack.addArrangedSubview($0) }
         return stack
     }()
     
@@ -46,6 +45,9 @@ class HeaderView: UICollectionReusableView {
     
     func setUpView() {
         addSubview(stackView)
+        
+        stackView.addSubview(headerLabel)
+        stackView.addSubview(subHeaderLabel)
         
         addConstrainsWithFormat(format: "H:|-36-[v0]-98-|", views: stackView)
         

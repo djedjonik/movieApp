@@ -61,19 +61,16 @@ enum Country: String, Codable {
 }
 
 // MARK: - Rating
-struct Rating: Codable {
+struct Rating : Codable {
     let source: Source
     let value: String
 
     enum CodingKeys: String, CodingKey {
         case source = "Source"
         case value = "Value"
+        
     }
 }
-    
-
-
-
 enum Source: String, Codable {
     case internetMovieDatabase = "Internet Movie Database"
     case metacritic = "Metacritic"

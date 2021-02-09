@@ -53,8 +53,8 @@ class MovieCell: UICollectionViewCell {
     
     let movieNameLabel: UILabel = {
         let label = UILabel()
-        //label.backgroundColor = UIColor.yellow
         label.textAlignment = .left
+        label.lineBreakMode = .byWordWrapping
         label.font = UIFont(name: "HelveticaNeue", size: 20.0)
         label.numberOfLines = 0
         label.sizeToFit()
@@ -72,9 +72,8 @@ class MovieCell: UICollectionViewCell {
     
     let directorlLabel: UILabel = {
         let label = UILabel()
-       // label.backgroundColor = UIColor.yellow
         label.textColor = #colorLiteral(red: 0.4392156863, green: 0.4392156863, blue: 0.4392156863, alpha: 1)
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.font = UIFont(name: "HelveticaNeue", size: 14.0)
         label.numberOfLines = 1
         return label
@@ -112,16 +111,14 @@ class MovieCell: UICollectionViewCell {
         stack.axis = .horizontal
         stack.alignment = .leading
         stack.distribution = .fill
-        [self.movieNameLabel,self.genreLabel].forEach { stack.addArrangedSubview($0) }
         return stack
     }()
     
     lazy var ratingStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.alignment = .center
-        stack.distribution = .fill
-        [self.imdbView,self.directorlLabel].forEach { stack.addArrangedSubview($0) }
+        stack.alignment = .leading
+        stack.distribution = .fillEqually
         return stack
     }()
     
@@ -132,7 +129,6 @@ class MovieCell: UICollectionViewCell {
         stack.alignment = .leading
         stack.distribution = .fill
         stack.contentMode = .scaleAspectFit
-        [self.shadowView, self.titlAndGenreStackView,self.ratingStackView].forEach { stack.addArrangedSubview($0) }
         return stack
     }()
     
@@ -142,12 +138,21 @@ class MovieCell: UICollectionViewCell {
         addSubview(mainStackView)
         addSubview(titlAndGenreStackView)
         addSubview(ratingStackView)
+        
+        
+        mainStackView.addSubview(shadowView)
+        mainStackView.addSubview(titlAndGenreStackView)
+        mainStackView.addSubview(ratingStackView)
+        titlAndGenreStackView.addSubview(movieNameLabel)
+        titlAndGenreStackView.addSubview(genreLabel)
+        ratingStackView.addSubview(imdbView)
+        ratingStackView.addSubview(directorlLabel)
         imdbView.addSubview(imdbLabel)
         imdbView.addSubview(imdbRatingLabel)
         shadowView.addSubview(imageView)
         
         //Views in MainStackView Constrains
-        addConstrainsWithFormat(format: "V:|-33-[v0(354)]-20-[v1]-10-[v2(28)]-<=160-|", views: shadowView,titlAndGenreStackView,ratingStackView)
+        addConstrainsWithFormat(format: "V:|-33-[v0(354)]-20-[v1]-10-[v2(28)]|", views: shadowView,titlAndGenreStackView,ratingStackView)
         
         addConstrainsWithFormat(format: "H:|[v0(226)]|", views: shadowView)
         
@@ -157,7 +162,7 @@ class MovieCell: UICollectionViewCell {
         
         
         //GenreAndTitle Constrains
-        addConstrainsWithFormat(format: "V:|[v0(14)][v1]|", views: genreLabel,movieNameLabel)
+        addConstrainsWithFormat(format: "V:|[v0][v1]|", views: genreLabel,movieNameLabel)
         addConstrainsWithFormat(format: "H:|[v0]|", views: genreLabel)
         addConstrainsWithFormat(format: "H:|[v0]|", views: movieNameLabel)
         
@@ -171,6 +176,7 @@ class MovieCell: UICollectionViewCell {
         addConstrainsWithFormat(format: "H:|-9-[v0]-5-[v1]-8-|", views: imdbLabel,imdbRatingLabel)
         addConstrainsWithFormat(format: "V:|-7-[v0]-7-|", views: imdbLabel)
         addConstrainsWithFormat(format: "V:|-7-[v0]-7-|", views: imdbRatingLabel)
+
         
         //MainStackView Constrains
         addConstrainsWithFormat(format: "H:|[v0]|", views: mainStackView)
